@@ -3,3 +3,6 @@
 
 #include "Person.h"
 
+UPerson::UPerson()
+{
+}

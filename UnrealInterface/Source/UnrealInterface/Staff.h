@@ -13,5 +13,6 @@ UCLASS()
 class UNREALINTERFACE_API UStaff : public UPerson
 {
 	GENERATED_BODY()
-	
+public:
+	UStaff();
 };
