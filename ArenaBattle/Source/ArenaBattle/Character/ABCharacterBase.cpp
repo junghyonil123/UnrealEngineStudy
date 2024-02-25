@@ -4,6 +4,7 @@
 #include "Character/ABCharacterBase.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "ABCharacterContorlData.h"
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -42,6 +43,29 @@ AABCharacterBase::AABCharacterBase()
 	{
 		GetMesh()->SetAnimInstanceClass(AnimInstanceClassRef.Class);
 	}
+
+	//static ConstructorHelpers::FObjectFinder<UABCharacterControlData> ShoulderDataRef(TEXT(""));
+	//if (ShoulderDataRef.Object)
+	//{
+	//	CharacterControlManager.Add(ECharacterControlType::Shoulder, ShoulderDataRef.Object);
+	//}
+
+	//static ConstructorHelpers::FObjectFinder<UABCharacterControlData> QuaterDataRef(TEXT(""));
+	//if (QuaterDataRef.Object)
+	//{
+	//	CharacterControlManager.Add(ECharacterControlType::Quater, QuaterDataRef.Object);
+	//}
 }
 
+
+//void AABCharacterBase::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
+//{
+//	// Pawn
+//	bUseControllerRotationYaw = CharacterControlData->bUseControllerRotationYaw;
+//
+//	// CharacterMovement
+//	GetCharacterMovement()->bOrientRotationToMovement = CharacterControlData->bOrientRotationToMovement;
+//	GetCharacterMovement()->bUseControllerDesiredRotation = CharacterControlData->bUseControllerDesiredRotation;
+//	GetCharacterMovement()->RotationRate = CharacterControlData->RotationRate;
+//}
 

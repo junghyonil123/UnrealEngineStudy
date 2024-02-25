@@ -23,8 +23,8 @@ public:
 	AABCharacterBase();
 
 protected:
-	virtual void SetCharacterControlData(const class SetCharacterControlData* CharacterControlData);
+	//virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData);
 
-	//UPROPERTY(EditorAnywhere, Category = )
-
+	//UPROPERTY(EditorAnywhere, Category = CharacterControl, Meta = (AllowPrivateAccess = "true"))
+	//TMap<ECharacterControlType, class UABCharacterControlData*> CharacterControlManager;
 };
