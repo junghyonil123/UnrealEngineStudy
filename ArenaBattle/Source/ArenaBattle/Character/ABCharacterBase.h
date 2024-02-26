@@ -22,9 +22,10 @@ public:
 	// Sets default values for this character's properties
 	AABCharacterBase();
 
-protected:
-	//virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData);
 
-	//UPROPERTY(EditorAnywhere, Category = CharacterControl, Meta = (AllowPrivateAccess = "true"))
-	//TMap<ECharacterControlType, class UABCharacterControlData*> CharacterControlManager;
+protected:
+	virtual void SetCharacterControlData(const class UABCharacterContorlData* CharacterControlData);
+
+	UPROPERTY(EditAnywhere, Category = CharacterControl, Meta = (AllowPrivateAccess = "true"))
+	TMap<ECharacterControlType, class UABCharacterContorlData*> CharacterControlManager;
 };
