@@ -31,6 +31,7 @@ public:
 
 protected:
 	void ChangeCharacterControl();
+	void TESTJump();
 	void SetCharacterControl(ECharacterControlType NewCharacterControlType);
 	virtual void SetCharacterControlData(const class UABCharacterContorlData* CharacterControlData) override;
 

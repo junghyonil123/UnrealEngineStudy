@@ -22,6 +22,13 @@ AABCharacterPlayer::AABCharacterPlayer()
 	FollowCamera->bUsePawnControlRotation = false;
 
 	// Input
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> InputJumpRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ArenaBattle/Input/Actions/IA_Jump.IA_Jump'"));
+	if (nullptr != InputJumpRef.Object)
+	{
+		JumpAction = InputJumpRef.Object;
+	}
+
 	static ConstructorHelpers::FObjectFinder<UInputAction> InputChangeActionControlRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ArenaBattle/Input/Actions/IA_ChangeControl.IA_ChangeControl'"));
 	if (nullptr != InputChangeActionControlRef.Object)
 	{
@@ -63,6 +70,7 @@ void AABCharacterPlayer::SetupPlayerInputComponent(class UInputComponent* Player
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent);
 
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
+	//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::TESTJump);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 	EnhancedInputComponent->BindAction(ChangeControlAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::ChangeCharacterControl);
 	EnhancedInputComponent->BindAction(ShoulderMoveAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::ShoulderMove);
@@ -80,6 +88,11 @@ void AABCharacterPlayer::ChangeCharacterControl()
 	{
 		SetCharacterControl(ECharacterControlType::Quater);
 	}
+}
+
+void AABCharacterPlayer::TESTJump()
+{
+	UE_LOG(LogTemp, Log, TEXT("JUMP"));
 }
 
 void AABCharacterPlayer::SetCharacterControl(ECharacterControlType NewCharacterControlType)
