@@ -12,6 +12,9 @@
 #include "CharacterStat/ABCharacterStatComponent.h"
 #include "UI/ABWidgetComponent.h"
 #include "UI/ABHpBarWidget.h"
+#include "Item/ABWeaponItemData.h"
+
+DEFINE_LOG_CATEGORY(LogABCharacter);
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -98,6 +101,14 @@ AABCharacterBase::AABCharacterBase()
 
 	}
 
+	// Item Actions
+	TakeItemActions.Add(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::EquipWeapon)));
+	TakeItemActions.Add(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::DrinkPotion)));
+	TakeItemActions.Add(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::ReadScroll)));
+
+	// Weapon Component
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
+	Weapon->SetupAttachment(GetMesh(), TEXT("hand_rSocket"));
 }
 
 void AABCharacterBase::PostInitializeComponents()
@@ -254,29 +265,38 @@ void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserwidget)
 	}
 }
 
+void AABCharacterBase::TakeItem(UABItemData* InItemData)
+{
+	if (InItemData)
+	{
+		TakeItemActions[(uint8)InItemData->Type].ItemDelegate.ExecuteIfBound(InItemData);
+	}
+}
 
-//float AABCharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
-//{
-//	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-//
-//	SetDead();
-//
-//	return DamageAmount;
-//}
-//
-//void AABCharacterBase::SetDead()
-//{
-//	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
-//	PlayDeadAnimation();
-//	SetActorEnableCollision(false);
-//}
-//
-//void AABCharacterBase::PlayDeadAnimation()
-//{
-//	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-//	AnimInstance->StopAllMontages(0.0f);
-//	AnimInstance->Montage_Play(DeadMontage, 1.0f);
-//}
+void AABCharacterBase::DrinkPotion(UABItemData* InItemData)
+{
+	UE_LOG(LogABCharacter, Log, TEXT("DrinkPotion"));
+}
+
+void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
+{
+	UABWeaponItemData* WeaponItemData = Cast<UABWeaponItemData>(InItemData);
+	if (WeaponItemData)
+	{
+		if (WeaponItemData->WeaponMesh.IsPending())
+		{
+			WeaponItemData->WeaponMesh.LoadSynchronous();
+		}
+		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh.Get());
+	}
+}
+
+void AABCharacterBase::ReadScroll(UABItemData* InItemData)
+{
+	UE_LOG(LogABCharacter, Log, TEXT("ReadScroll"));
+}
+
+
 
 
 
