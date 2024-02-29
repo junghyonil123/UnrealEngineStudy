@@ -288,12 +288,23 @@ void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
 			WeaponItemData->WeaponMesh.LoadSynchronous();
 		}
 		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh.Get());
+		Stat->SetModifierStat(WeaponItemData->ModifierStat);
 	}
 }
 
 void AABCharacterBase::ReadScroll(UABItemData* InItemData)
 {
 	UE_LOG(LogABCharacter, Log, TEXT("ReadScroll"));
+}
+
+int32 AABCharacterBase::GetLevel()
+{
+	return Stat->GetCurrentLevel();
+}
+
+void AABCharacterBase::SetLevel(int32 InNewLevel)
+{
+	Stat->SetLevelStat(InNewLevel);
 }
 
 

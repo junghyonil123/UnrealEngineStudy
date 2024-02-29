@@ -22,7 +22,7 @@ public:
 	static UABGameSingleton& Get();
 
 public:
-	FORCEINLINE FABCharacterStat GetCharacterStat(int32 InLevel) const { return CharacterStatTable.IsValidIndex(InLevel) ? CharacterStatTable[InLevel] : FABCharacterStat(); }
+	FORCEINLINE FABCharacterStat GetCharacterStat(int32 InLevel) const { return CharacterStatTable.IsValidIndex(InLevel - 1) ? CharacterStatTable[InLevel - 1] : FABCharacterStat(); }
 
 	UPROPERTY()
 	int32 CharacterMaxLevel;
