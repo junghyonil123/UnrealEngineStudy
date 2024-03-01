@@ -5,6 +5,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "ABAI.h"
 
 AABAIController::AABAIController()
 {
@@ -27,6 +28,8 @@ void AABAIController::RunAI()
 
 	if (UseBlackboard(BBAsset, BlackboardPtr))
 	{
+		Blackboard->SetValueAsVector(BBKEY_HOMEPOS, GetPawn()->GetActorLocation());
+
 		bool RunResult = RunBehaviorTree(BTAsset);
 		ensure(RunResult);
 	}
@@ -43,4 +46,6 @@ void AABAIController::StopAI()
 
 void AABAIController::OnPossess(APawn* InPawn)
 {
+	Super::OnPossess(InPawn);
+	RunAI();
 }
