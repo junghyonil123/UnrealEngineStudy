@@ -12,7 +12,7 @@ UABHpBarWidget::UABHpBarWidget(const FObjectInitializer& ObjectInitializer) : Su
 
 void UABHpBarWidget::UpdateHpBar(float NewCurrentHp)
 {
-	ensure(MaxHp < 0.0f);
+	//ensure(MaxHp < 0.0f);
 	if (HpProgtressBar)
 	{
 		HpProgtressBar->SetPercent(NewCurrentHp / MaxHp);
