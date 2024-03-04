@@ -68,7 +68,24 @@ void AABCharacterPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		EnableInput(PlayerController);
+	}
+
 	SetCharacterControl(CurrentCharacterControlType);
+}
+
+void AABCharacterPlayer::SetDaed()
+{
+	Super::SetDaed();
+
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		DisableInput(PlayerController);
+	}
 }
 
 void AABCharacterPlayer::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

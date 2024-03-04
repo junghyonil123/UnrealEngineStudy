@@ -26,10 +26,11 @@ void AABCharacterNonPlayer::SetDaed()
 {
 	Super::SetDaed();
 
-	AABAIController* AABAIController = Cast<AABAIController>(GetController());
-	if (AABAIController)
+
+	AABAIController* ABAIController = Cast<AABAIController>(GetController());
+	if (ABAIController)
 	{
-		AABAIController->StopAI();
+		ABAIController->StopAI();
 	}
 
 	FTimerHandle DeadTimerHandle;
