@@ -6,6 +6,8 @@
 #include "Components/BoxComponent.h"
 #include "Physics/ABCollision.h"
 #include "Character/ABCharacterNonPlayer.h"
+#include "Interface/ABGameInterface.h"
+#include "GameFramework/GameModeBase.h"
 #include "Item/ABItemBox.h"
 
 // Sets default values
@@ -193,6 +195,15 @@ void AABStageGimmick::SetChooseNext()
 
 void AABStageGimmick::OnOpponentDestroyed(AActor* DestroyedActor)
 {
+	IABGameInterface* ABGameMode = Cast<IABGameInterface>(GetWorld()->GetAuthGameMode());
+	if (ABGameMode)
+	{
+		ABGameMode->OnPlayerScoreChanged(CurrentStageNum);
+		if (ABGameMode->IsGameCleard())
+		{
+			return;
+		}
+	}
 	SetState(EStageState::REWARD);
 }
 

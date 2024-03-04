@@ -15,6 +15,22 @@ AABPlayerController::AABPlayerController()
 	}
 }
 
+
+void AABPlayerController::GameScoreChanged(int32 NewScore)
+{
+	K2_OnScoreChange(NewScore);
+}
+
+void AABPlayerController::GameClear()
+{
+	K2_OnGameClear();
+}
+
+void AABPlayerController::GameOver()
+{
+	K2_OnGameOver();
+}
+
 void AABPlayerController::BeginPlay()
 {
 	Super::BeginPlay();

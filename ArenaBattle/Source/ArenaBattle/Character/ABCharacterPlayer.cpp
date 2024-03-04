@@ -8,8 +8,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "ABCharacterContorlData.h"
-#include "UI/ABHUDWidget.h"
 #include "CharacterStat/ABCharacterStatComponent.h"
+#include "GameFramework/GameModeBase.h"
+#include "Interface/ABGameInterface.h"
+#include "UI/ABHUDWidget.h"
 
 AABCharacterPlayer::AABCharacterPlayer()
 {
@@ -85,6 +87,13 @@ void AABCharacterPlayer::SetDaed()
 	if (PlayerController)
 	{
 		DisableInput(PlayerController);
+
+		
+		IABGameInterface* ABGameMode = Cast<IABGameInterface>(GetWorld()->GetAuthGameMode());
+		if (ABGameMode)
+		{
+			ABGameMode->OnPlayerDead();
+		}
 	}
 }
 
